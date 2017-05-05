@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Subject, Observable, Subscription } from 'rxjs/Rx';
 import { WebSocketSubject } from "rxjs/observable/dom/WebSocketSubject";
+import { SessionService } from './session.service';
 
 @Injectable()
 export class WebSocketService {
@@ -11,6 +12,8 @@ export class WebSocketService {
 
   public message: Subject<Object> = new Subject();
   public opened: Subject<boolean> = new Subject();
+
+  constructor(private sessionService: SessionService){}
 
   public close(): void {
     this.socket.unsubscribe();
@@ -25,9 +28,9 @@ export class WebSocketService {
     this.url = url;
     this.ws = Observable.webSocket(this.url);
     this.socket = this.ws.subscribe({
-
       next: (data: MessageEvent) => {
-        if (data['type'] === 'welcome') {
+        if (data['status'] === 'ok') {
+          this.sessionService.setUserID(data['userID']);
           this.opened.next(true);
         }
         this.message.next(data);

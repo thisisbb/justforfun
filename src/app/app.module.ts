@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { WebSocketService } from './web-socket.service';
+import { SessionService } from './session.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { WebSocketService } from './web-socket.service';
     FormsModule,
     HttpModule
   ],
-  providers: [WebSocketService],
+  providers: [WebSocketService, SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

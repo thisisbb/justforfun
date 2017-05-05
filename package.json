@@ -5,7 +5,9 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
+    "install": "npm i && cd server && npm i",
     "start": "ng serve --host 0.0.0.0",
+    "server": "nodemon server/server.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
